@@ -1,5 +1,7 @@
-# ID - 141490654.
+# ID - 141524482.
 from string import digits
+
+
 DIGITS_SET = set(digits)
 
 OPEN_BRACKET = '['
@@ -18,25 +20,22 @@ def decode(command: str) -> str:
 
         while index < len(command):
             char = command[index]
-
+            index += 1
             if char in DIGITS_SET:
 
                 num = num * 10 + int(char)
-                index += 1
 
             elif char == OPEN_BRACKET:
 
-                decode_str, index = decode_recursive(index + 1)
-                index + 1
+                decode_str, index = decode_recursive(index)
                 result += decode_str * num
                 num = 0
 
             elif char == CLOSE_BRACKET:
-                return result, index + 1
+                return result, index
 
             else:
                 result += char
-                index += 1
 
         return result, index
     return decode_recursive()[0]
